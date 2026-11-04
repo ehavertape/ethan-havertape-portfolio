@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Systems Analysis | Ethan Havertape</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">Ethan <span>Havertape</span></a>
+    <button class="navtoggle" aria-label="Menu" onclick="document.getElementById('navlist').classList.toggle('open')">Menu</button>
+    <ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="resume.html">Resume &amp; Cover Letter</a></li>
+      <li><a href="index.html#portfolio">Portfolio</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="references.html">References</a></li>
+    </ul>
+  </div>
+</header>
+<div class="page-head"><div class="wrap">
+  <div class="crumb"><a href="index.html#portfolio">&larr; Portfolio</a></div>
+  <div class="eyebrow">Section 01 &middot; Business &amp; Systems Analysis</div>
+  <h1 style="font-size:36px;margin-bottom:12px">University Pilot &amp; Security Review</h1>
+  <div class="prose"><p style="font-size:17px">Before the University of Louisville would let all of its students use Due Gooder, the university had to be convinced the system was safe, private, and accessible. Getting there was a systems analysis project: identifying every stakeholder, translating their requirements into specific controls, documenting how our system met each one, and being honest about where it didn't yet.</p></div>
+  <div class="skills-box"><span class="tag">Requirements analysis</span><span class="tag">Stakeholder analysis</span><span class="tag">Risk management</span><span class="tag">Security & compliance</span><span class="tag">Technical writing</span><span class="tag">Ethics: privacy & AI</span></div>
+  <p style="font-size:13px;color:var(--muted);margin-top:10px">Due Gooder &middot; Summer 2026 &middot; Joint effort with my co-founder Nate Royal, who led the technical sections</p>
+</div></div>
+<section><div class="wrap">
+<div class="callout warn"><b>Why this section uses Due Gooder work:</b> I completed UofL's Sandbox program in place of CIS 320, 420, and 410, building Due Gooder full-time for course credit. This page applies the same methods those courses teach (systems analysis, project management, and case analysis) to real work at the company.</div>
+
+<div class="artifact">
+  <div class="meta">CONTEXT</div>
+  <h3>The problem</h3>
+  <p>Due Gooder grew by selling directly to students. Universities were a new channel, and a university can't adopt a tool that touches student data
+  without a formal vendor review. UofL's process centered on the <b>HECVAT</b> (Higher Education Community Vendor Assessment Toolkit), the
+  EDUCAUSE standard questionnaire that higher-ed security offices use to evaluate cloud vendors. Ours ran to roughly <b>900 questions</b> across
+  seven areas: organization, product, infrastructure, IT accessibility, case-specific use, AI, and privacy.</p>
+  <div class="kpis">
+    <div class="kpi"><b>~900</b><span>Assessment questions</span></div>
+    <div class="kpi"><b>7</b><span>Domains reviewed</span></div>
+    <div class="kpi"><b>2</b><span>Rounds of contract review</span></div>
+    <div class="kpi"><b>Approved</b><span>Campus-wide pilot, 2026&ndash;27</span></div>
+  </div>
+</div>
+
+<div class="artifact">
+  <div class="meta">STAKEHOLDER ANALYSIS</div>
+  <h3>Who needed what</h3>
+  <div class="tablewrap"><table class="data">
+    <tr><th>Stakeholder</th><th>Role</th><th>What they needed from us</th></tr>
+    <tr><td>Provost's office</td><td>Executive sponsor</td><td>A tool that supports student success, with outcome data to judge the pilot</td></tr>
+    <tr><td>Chief Information Security Officer &amp; IT security</td><td>Approver</td><td>Proof that student data is protected, plus a completed HECVAT and proof of insurance</td></tr>
+    <tr><td>Students</td><td>End users</td><td>A useful product, and privacy: their data used only for them and covered by federal student-privacy law (FERPA)</td></tr>
+    <tr><td>Legal / procurement</td><td>Contract owner</td><td>Clear data ownership, liability, and exit terms</td></tr>
+    <tr><td>Due Gooder (Nate &amp; me)</td><td>Vendor</td><td>An approval path we could repeat at other universities</td></tr>
+  </table></div>
+</div>
+
+<div class="artifact">
+  <div class="meta">REQUIREMENTS &rarr; DESIGN</div>
+  <h3>Translating requirements into controls</h3>
+  <p>Most of the work was mapping each requirement area to how the system actually behaves, in language a security reviewer could verify.
+  A sample of what we documented:</p>
+  <div class="tablewrap"><table class="data">
+    <tr><th>Requirement area</th><th>How Due Gooder meets it</th></tr>
+    <tr><td>Authentication</td><td>Single sign-on through Google and Microsoft accounts (OpenID Connect). No passwords are stored by Due Gooder at all.</td></tr>
+    <tr><td>Data in transit &amp; at rest</td><td>All traffic encrypted with TLS; databases and backups encrypted at rest with AES-256.</td></tr>
+    <tr><td>Data location</td><td>All production data and backups stay in U.S. data centers on managed cloud infrastructure.</td></tr>
+    <tr><td>Data ownership &amp; exit</td><td>The institution owns its data, can request an export at any time, and institutional data is deleted at contract end.</td></tr>
+    <tr><td>Student privacy</td><td>Due Gooder acts as a FERPA "school official" for institutional accounts. Product analytics use anonymous IDs instead of emails.</td></tr>
+    <tr><td>Responsible AI</td><td>AI features run on a paid enterprise API that doesn't train on student data; any AI action that changes data needs the user's approval; AI use is logged and rate-limited.</td></tr>
+    <tr><td>Accessibility</td><td>ADA compliance commitments documented for web and mobile apps.</td></tr>
+  </table></div>
+  <div class="callout"><b>A design change that came out of the review:</b> our analytics originally identified users by email. To meet the privacy requirement,
+  we switched to anonymized user IDs before launch. It was a small engineering change with a big trust payoff.</div>
+</div>
+
+<div class="artifact">
+  <div class="meta">RISK MANAGEMENT</div>
+  <h3>Handling the gaps honestly</h3>
+  <p>As an early-stage startup, we didn't meet every control a large vendor would (for example, formal third-party audits). Rather than overstate
+  anything, we answered "no" where that was the truth and described the compensating control and the plan to close the gap. That honesty is what
+  made the review credible.</p>
+  <ul>
+    <li><b>Transferring risk:</b> we bought general liability, professional liability, and cyber/data-breach insurance, and sent proof of coverage to UofL's security office.</li>
+    <li><b>Contract risk:</b> we worked through two rounds of redlines on the pilot agreement, covering liability, privacy obligations, governing law, and accessibility.</li>
+    <li><b>Reusability:</b> the completed HECVAT is now a standard asset we can hand to the next university, which shortens every future review.</li>
+  </ul>
+  <p style="font-size:14px;color:var(--muted)">The full HECVAT is not published here because it documents our security architecture in detail.</p>
+</div>
+
+<div class="artifact">
+  <div class="meta">OUTCOME &amp; REFLECTION</div>
+  <h3>Result</h3>
+  <p>UofL approved Due Gooder for a campus-wide pilot covering the 2026&ndash;27 academic year, with the university sharing anonymized outcome
+  data back to us. It became the anchor for our university channel. Due Gooder now has four signed university pilots.</p>
+  <h4 class="h">What I learned</h4>
+  <ul>
+    <li>In enterprise sales, the security review <i>is</i> part of the product. Treating it as paperwork would have stalled the deal.</li>
+    <li>Writing for a technical reviewer means being specific and verifiable. "We take security seriously" earns nothing; "no passwords stored, SSO only" does.</li>
+    <li>Splitting the work by strength worked: Nate owned the architecture answers, and we worked through the rest together.</li>
+  </ul>
+</div>
+</div></section>
+<div class="wrap"><div class="pager">
+  <a href="resume.html"><small>&larr; Previous</small><b>Resume &amp; Cover Letter</b></a>
+  <a href="data-systems.html" style="text-align:right"><small>Next &rarr;</small><b>02 Go-To-Market Engine</b></a>
+</div></div>
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Ethan Havertape &middot; CIS 410 Portfolio, University of Louisville</span>
+    <span><a href="mailto:ethan@duegooder.com">ethan@duegooder.com</a> &middot; <a href="https://www.linkedin.com/in/ethan-havertape-712b45330" target="_blank" rel="noopener">LinkedIn</a></span>
+  </div>
+</footer>
+</body>
+</html>

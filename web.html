@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Web Development | Ethan Havertape</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">Ethan <span>Havertape</span></a>
+    <button class="navtoggle" aria-label="Menu" onclick="document.getElementById('navlist').classList.toggle('open')">Menu</button>
+    <ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="resume.html">Resume &amp; Cover Letter</a></li>
+      <li><a href="index.html#portfolio">Portfolio</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="references.html">References</a></li>
+    </ul>
+  </div>
+</header>
+<div class="page-head"><div class="wrap">
+  <div class="crumb"><a href="index.html#portfolio">&larr; Portfolio</a></div>
+  <div class="eyebrow">Section 07 &middot; Web Development</div>
+  <h1 style="font-size:36px;margin-bottom:12px">Live Web Projects</h1>
+  <div class="prose"><p style="font-size:17px">Every funnel I build ends in a web page or a form, so knowing how HTML, CSS, and JavaScript fit together is practical for me, not academic. These CIS 150 projects run live below. Click into any of them. This portfolio site is also hand-built in HTML and CSS and hosted on GitHub Pages.</p></div>
+  <div class="skills-box"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span><span class="tag">Form validation</span><span class="tag">Regular expressions</span><span class="tag">Responsive layout</span></div>
+  <p style="font-size:13px;color:var(--muted);margin-top:10px">CIS 150 &middot; New Perspectives on HTML5 and CSS3 projects &middot; Fall 2024</p>
+</div></div>
+<section><div class="wrap">
+<div class="artifact">
+  <div class="meta">CIS 150 &middot; TUTORIAL 7 CASE PROBLEM</div>
+  <h3>Spice Bowl payment form: validating data at the point of entry</h3>
+  <p>A checkout form that checks every field before it can be submitted, so bad data never makes it into the system. That's the same principle
+  behind clean CRM data: it's far cheaper to stop a bad record at the form than to clean it up later.</p>
+  <ul>
+    <li><b>Regular expressions</b> validate ZIP codes (5 or 9 digit), phone numbers in several formats, 3-digit security codes, and credit card numbers by issuer pattern (Visa, Mastercard, Amex, Discover).</li>
+    <li><b>Instant visual feedback:</b> CSS <code>:valid</code> and <code>:invalid</code> styles turn each field green or red as you type.</li>
+    <li><b>Data list</b> suggests state names to reduce typos; <b>JavaScript</b> runs a final validity check on submit.</li>
+  </ul>
+  <figure><img src="img/cis150/spice-bowl.png" alt="Spice Bowl payment form screenshot" loading="lazy"><figcaption>Try typing an invalid ZIP or card number in the live version</figcaption></figure>
+  <p><a class="btn primary" href="projects/spice-bowl/sb_payment.html" target="_blank" rel="noopener">Open live form &#8599;</a></p>
+  <div class="callout warn"><b>Fixed for the portfolio:</b> the "Expiration Date" label was empty in my original submission, so the month/year
+  dropdowns sat misaligned. "Street Address (2)" was also marked required when it should be optional. Both are one-line fixes, made here.</div>
+</div>
+
+<div class="artifact">
+  <div class="meta">CIS 150 &middot; TUTORIAL 4 REVIEW</div>
+  <h3>Tree and Book: multi-page site with layered CSS</h3>
+  <p>A family-history site where each page shares a base stylesheet and adds page-specific visual styles: custom web fonts, framed images,
+  drop shadows, gradients, and rounded borders.</p>
+  <figure><img src="img/cis150/tree-and-book.png" alt="Tree and Book family page" loading="lazy"><figcaption>The Ferris Family page</figcaption></figure>
+  <p><a class="btn primary" href="projects/tree-and-book/tb_ferris.html" target="_blank" rel="noopener">Open live site &#8599;</a></p>
+</div>
+
+<div class="artifact">
+  <div class="meta">CIS 150 &middot; TUTORIAL 9 CODING CHALLENGE</div>
+  <h3>Countdown clock: JavaScript timers</h3>
+  <p>A 10-second countdown using <code>setInterval()</code> to tick every second and <code>clearInterval()</code> to stop at zero, with a helper
+  function that pads single digits with a leading zero.</p>
+  <p><a class="btn ghost" href="projects/countdown/code9-2.html" target="_blank" rel="noopener">Open countdown &#8599;</a></p>
+</div>
+</div></section>
+<div class="wrap"><div class="pager">
+  <a href="programming.html"><small>&larr; Previous</small><b>06 Programming</b></a>
+  <a href="skills.html" style="text-align:right"><small>Next &rarr;</small><b>08 Skill Set Sheet</b></a>
+</div></div>
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Ethan Havertape &middot; CIS 410 Portfolio, University of Louisville</span>
+    <span><a href="mailto:ethan@duegooder.com">ethan@duegooder.com</a> &middot; <a href="https://www.linkedin.com/in/ethan-havertape-712b45330" target="_blank" rel="noopener">LinkedIn</a></span>
+  </div>
+</footer>
+</body>
+</html>

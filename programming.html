@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Programming | Ethan Havertape</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">Ethan <span>Havertape</span></a>
+    <button class="navtoggle" aria-label="Menu" onclick="document.getElementById('navlist').classList.toggle('open')">Menu</button>
+    <ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="resume.html">Resume &amp; Cover Letter</a></li>
+      <li><a href="index.html#portfolio">Portfolio</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="references.html">References</a></li>
+    </ul>
+  </div>
+</header>
+<div class="page-head"><div class="wrap">
+  <div class="crumb"><a href="index.html#portfolio">&larr; Portfolio</a></div>
+  <div class="eyebrow">Section 06 &middot; Programming</div>
+  <h1 style="font-size:36px;margin-bottom:12px">Object-Oriented C#</h1>
+  <div class="prose"><p style="font-size:17px">Programming taught me how software enforces business rules, which is most of what a CRM or database does behind the scenes. These CIS 199 programs show object-oriented design (classes, encapsulation, validation) and a Windows Forms app that turns pricing rules into working logic. I don't write production code day to day, but this foundation is why I can spec automations and work closely with engineers.</p></div>
+  <div class="skills-box"><span class="tag">C#</span><span class="tag">.NET</span><span class="tag">Object-oriented design</span><span class="tag">Encapsulation</span><span class="tag">Input validation</span><span class="tag">Windows Forms</span><span class="tag">Arrays & loops</span></div>
+  <p style="font-size:13px;color:var(--muted);margin-top:10px">CIS 199 &middot; Visual Studio &middot; Fall 2024</p>
+</div></div>
+<section><div class="wrap">
+<div class="artifact">
+  <div class="meta">CIS 199 &middot; PROGRAM 4</div>
+  <h3>Student records: classes and encapsulation</h3>
+  <p>A <code>Student</code> class that stores each student's data in private fields and only exposes it through properties. The properties enforce
+  business rules: a GPA outside 0.0&ndash;4.0 or credit hours outside 0&ndash;12 are rejected and replaced with a default, so bad data can't get into
+  the object. Enrollment status can only change through the <code>Enroll()</code> and <code>Unenroll()</code> methods.</p>
+  <ul><li><b>Concepts:</b> constructors, private backing fields, get/set properties with validation, methods, overriding <code>ToString()</code>, arrays of objects.</li></ul>
+  <h4 class="h">Student.cs</h4>
+<pre><code class="language-csharp">//Ethan Havertape
+//CIS 199-01
+//11-24-2024
+//Program 4 - student data
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Program4
+{
+        public class Student //.cs file for student info
+        {
+            //create constant variables for gpa and credit hours
+            public double DEFAULT_GPA = 4.0;
+            public int DEFAULT_CREDITS = 12;
+
+            //backing fields
+            //all private variables for each
+            private string _name;
+            private double _gpa;
+            private int _creditHours;
+            private string _classification;
+            private string _major;
+            private bool enrollmentStatus; // private field for enrollment status
+
+        //make constructor
+        public Student(string name, double gpa, int creditHours, string classification, string major, bool enrollmentStatus)
+            {
+                Name = name;
+                GPA = gpa;
+                CreditHours = creditHours;
+                Classification = classification;
+                Major = major;
+                this.enrollmentStatus = enrollmentStatus;
+            }
+
+            //properties
+            public string Name //name properties get and set
+            {
+                get { return _name; }
+                set { _name = value; }
+            }
+
+            public double GPA //gpa properties get and set
+        {
+                get { return _gpa; }
+                set
+                {
+                    if (value &gt;= 0.0 &amp;&amp; value &lt;= 4.0)
+                        _gpa = value;
+                    else
+                        _gpa = DEFAULT_GPA;
+                }
+            }
+
+            public int CreditHours //credit hours properties get and set
+        {
+                get { return _creditHours; }
+                set
+                {
+                    if (value &gt;= 0 &amp;&amp; value &lt;= 12)
+                        _creditHours = value;
+                    else
+                        _creditHours = DEFAULT_CREDITS;
+                }
+            }
+
+            public string Classification //classification properties get and set
+        {
+                get { return _classification; }
+                set { _classification = value; }
+            }
+
+
+            public string Major //major properties get and set
+        {
+                get { return _major; }
+                set { _major = value; }
+            }
+
+            //method to set enrollment status to true
+            public void Enroll()
+            { enrollmentStatus = true; }
+            
+            //method to set enrollment status to false
+            public void Unenroll()
+            { enrollmentStatus = false; }
+
+            //method for currently enrolled
+            public bool IsEnrolled()
+            { return enrollmentStatus; }
+
+            //display text with each variable on own line
+            public override string ToString()
+            {
+                return $"Name: {Name}{Environment.NewLine}" +
+                   $"GPA: {GPA:F1}{Environment.NewLine}" +
+                   $"Credit Hours: {CreditHours}{Environment.NewLine}" +
+                   $"Classification: {Classification}{Environment.NewLine}" +
+                   $"Major: {Major}{Environment.NewLine}" +
+                   $"Enrollment Status: {(enrollmentStatus ? "Enrolled" : "Not Enrolled")}{Environment.NewLine}";
+            }
+        }
+    }
+
+</code></pre>
+  <h4 class="h">Program.cs</h4>
+<pre><code class="language-csharp">//Ethan Havertape
+//CIS 199-01
+//11-24-2024
+//Program 4 - student data
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace Program4
+{
+    class Program //.cs file for program info (Main)
+    {
+        static void Main(string[] args)
+        {
+            // create an array of five Student objects
+            Student[] students = new Student[]
+            {
+                new Student("John McLane", 3.6, 12, "Junior", "Computer Information Systems", true),
+                new Student("Patrick Swayze", 3.8, 14, "Freshman", "Business Administration", true),
+                new Student("Marty McFly", 3.3, 15, "Junior", "Chemistry", true),
+                new Student("Dolly Parton", 3.6, 12, "Sophomore", "Mechanical Engineering", true),
+                new Student("Harvey Spector", 2.8, 18, "Senior", "Criminal Justice", false)
+            };
+
+            // print current students data
+            Console.WriteLine("--Current Students--");
+            DisplayStudents(students);
+
+            //// Make changes to properties and enrollment status
+            students[0].Name = "John Marston"; //change name
+            students[1].GPA = 3.7; //change gpa
+            students[2].CreditHours = 9; //change credit hours
+            students[3].Unenroll(); //change enrollment status 
+            students[4].Enroll(); //change enrollment status
+
+            // print after changes
+            Console.WriteLine("--After Changes--");
+            DisplayStudents(students);
+        }
+
+        // static method to print student data
+        static void DisplayStudents(Student[] students)
+        {
+            foreach (Student student in students)
+            {
+                Console.WriteLine(student.ToString());
+            }
+        }
+    }
+}
+</code></pre>
+  <h4 class="h">Console output</h4>
+  <div class="console">--Current Students--
+Name: John McLane
+GPA: 3.6
+Credit Hours: 12
+Classification: Junior
+Major: Computer Information Systems
+Enrollment Status: Enrolled
+
+Name: Patrick Swayze
+GPA: 3.8
+Credit Hours: 12
+Classification: Freshman
+Major: Business Administration
+Enrollment Status: Enrolled
+
+Name: Marty McFly
+GPA: 3.3
+Credit Hours: 12
+Classification: Junior
+Major: Chemistry
+Enrollment Status: Enrolled
+
+Name: Dolly Parton
+GPA: 3.6
+Credit Hours: 12
+Classification: Sophomore
+Major: Mechanical Engineering
+Enrollment Status: Enrolled
+
+Name: Harvey Spector
+GPA: 2.8
+Credit Hours: 12
+Classification: Senior
+Major: Criminal Justice
+Enrollment Status: Not Enrolled
+
+--After Changes--
+Name: John Marston
+GPA: 3.6
+Credit Hours: 12
+Classification: Junior
+Major: Computer Information Systems
+Enrollment Status: Enrolled
+
+Name: Patrick Swayze
+GPA: 3.7
+Credit Hours: 12
+Classification: Freshman
+Major: Business Administration
+Enrollment Status: Enrolled
+
+Name: Marty McFly
+GPA: 3.3
+Credit Hours: 9
+Classification: Junior
+Major: Chemistry
+Enrollment Status: Enrolled
+
+Name: Dolly Parton
+GPA: 3.6
+Credit Hours: 12
+Classification: Sophomore
+Major: Mechanical Engineering
+Enrollment Status: Not Enrolled
+
+Name: Harvey Spector
+GPA: 2.8
+Credit Hours: 12
+Classification: Senior
+Major: Criminal Justice
+Enrollment Status: Enrolled</div>
+  <div class="callout warn"><b>Note:</b> the validation rule caps credit hours at 12, so three students entered with 14, 15, and 18 hours display as 12.
+  In a real system I'd raise the cap to a realistic full-time maximum (about 21) and reject bad input with an error instead of silently replacing it,
+  because silent "fixes" are how dirty data gets into a CRM.</div>
+</div>
+
+<div class="artifact">
+  <div class="meta">CIS 199 &middot; PROGRAM 3</div>
+  <h3>Catering contract calculator: business logic in a GUI</h3>
+  <p>A Windows Forms app that prices a catering contract. The user picks a caterer and a business and enters the contract length. The program
+  looks up each caterer's discount rate and each business's base price from parallel arrays, then applies a tiered loyalty discount based on the
+  number of years. It validates every input before calculating.</p>
+  <h4 class="h">Try the logic</h4>
+  <p style="font-size:14px;color:var(--muted)">The original is a Windows desktop app. This is a small browser re-creation of the same pricing logic so you can test it here.</p>
+  <div class="demo">
+    <div><label for="cat">Caterer</label><select id="cat"><option value="0.30">Hill Catering Co.</option><option value="0.29">Food in a Flash</option><option value="0.12">Sally's Sandwiches</option><option value="0.05">Perry's Pierogis</option></select></div>
+    <div><label for="biz">Business</label><select id="biz"><option value="500">John's Books</option><option value="489">Office Supplies</option><option value="412">J.B. Car Parts</option><option value="350">Gevalia Coffee</option><option value="325">Ceylon Tea</option><option value="279">My Footwear</option></select></div>
+    <div><label for="yrs">Contract years</label><input id="yrs" type="number" min="0" value="3"></div>
+    <div class="out" id="out"></div>
+  </div>
+  <h4 class="h">Form1.cs</h4>
+<pre><code class="language-csharp">//Ethan Havertape
+//CIS 199-01
+//Program 3  Catering Contract Calculator
+//Due 11/7/2024
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Program3
+{
+    public partial class Program3 : Form
+    {
+        //create arrays for the differect catering companies and their respective discounts
+        string[] caterers =  { "Hill Catering Co.", "Food in a Flash", "Sally's Sandwiches", "Perry's Peirogis" };
+        double[] discounts = { 0.30, 0.29, 0.12, 0.05 };
+
+        //create arrays for different businesses and their respect contract prices
+        string[] businesses = { "John's Books", "Office Supplies", "J.B. Car Parts", "Gevalia Coffee", "Ceylon Tea", "My Footwear" };
+        double[] prices = { 500, 489, 412, 350, 325, 279 };
+
+        //create arrays for the contract year ranges and their respective additional discounts/savings
+        //use the ending year for the ranges
+        int[] yearRanges = { 1, 4, 7, 8 };
+        double[] savings = { 0, 30, 40, 50 };
+
+
+        public Program3()
+        {
+            InitializeComponent();
+        }
+
+        private void CalcBtn_Click(object sender, EventArgs e)
+        {
+            //create a message box if the user does not select a caterer
+            if (catererComBox.SelectedIndex &lt; 0)
+            {
+                MessageBox.Show("Please select Caterer");
+                return;
+            }
+            
+            //create a message box if the user does not select a business
+            if (businessComBox.SelectedIndex &lt; 0)
+            {
+                MessageBox.Show("Please select Business");
+                return;
+            }
+
+            //create a message box if the user does not enter a contract year, or an invalid year/input
+            //use tryparse for this
+            if (!int.TryParse(yearsTxt.Text, out int contractYears) || (contractYears &lt; 0))
+            {
+                MessageBox.Show("Please provide valid contract years");
+                return;
+            }
+
+            //code for finding the discount rate for the caterer selected
+            int catererIndex = catererComBox.SelectedIndex;
+            double discountRate = discounts[catererIndex];
+
+            //find the contract price for the business selected
+            int businessIndex = businessComBox.SelectedIndex;
+            double contractPrice = prices[businessIndex];
+
+            //caclulate the discount amount by multiplying the contract price and the discount rate
+            double discountAmt = contractPrice * discountRate;
+
+            //find the additional savings/discounts through the contract years
+            //use for loop
+            //else if to calculate for years 8+
+            double additionalDiscount = 0;
+            for (int i = 0; i &lt; yearRanges.Length; i++)
+            {
+                if (contractYears &lt; yearRanges[i])
+                {
+                    additionalDiscount = savings[i];
+                    break;
+                }
+
+                else if (contractYears &gt;= 8)
+                {
+                    additionalDiscount = savings[savings.Length - 1];
+                    break;
+                }
+
+            }
+
+            //calcluate total price by factoring in additional discounts/savings
+            double totalPrice = contractPrice - discountAmt - additionalDiscount;
+
+            //display price
+            priceTxt.Text = $"${totalPrice:F2}";
+        }
+    }
+}
+</code></pre>
+</div>
+</div></section>
+<div class="wrap"><div class="pager">
+  <a href="database.html"><small>&larr; Previous</small><b>05 Database Design</b></a>
+  <a href="web.html" style="text-align:right"><small>Next &rarr;</small><b>07 Web Development</b></a>
+</div></div>
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Ethan Havertape &middot; CIS 410 Portfolio, University of Louisville</span>
+    <span><a href="mailto:ethan@duegooder.com">ethan@duegooder.com</a> &middot; <a href="https://www.linkedin.com/in/ethan-havertape-712b45330" target="_blank" rel="noopener">LinkedIn</a></span>
+  </div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+<script>
+(function(){
+  var yr=[1,4,7,8], sv=[0,30,40,50];
+  function calc(){
+    var d=+document.getElementById('cat').value, p=+document.getElementById('biz').value, raw=document.getElementById('yrs').value, y=parseInt(raw,10);
+    var o=document.getElementById('out');
+    if(isNaN(y)||y<0||String(y)!==raw.trim()){o.innerHTML='Please provide valid contract years';return;}
+    var add=0; for(var i=0;i<yr.length;i++){ if(y<yr[i]){add=sv[i];break;} else if(y>=8){add=sv[sv.length-1];break;} }
+    var t=p-p*d-add;
+    o.innerHTML='Contract price: <b>$'+t.toFixed(2)+'</b> <span style="color:var(--muted);font-size:13px">(base $'+p+' &minus; '+Math.round(d*100)+'% caterer discount &minus; $'+add+' loyalty savings)</span>';
+  }
+  ['cat','biz','yrs'].forEach(function(id){document.getElementById(id).addEventListener('input',calc)}); calc();
+})();
+</script>
+</body>
+</html>

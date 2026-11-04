@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Database Design | Ethan Havertape</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">Ethan <span>Havertape</span></a>
+    <button class="navtoggle" aria-label="Menu" onclick="document.getElementById('navlist').classList.toggle('open')">Menu</button>
+    <ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="resume.html">Resume &amp; Cover Letter</a></li>
+      <li><a href="index.html#portfolio">Portfolio</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="references.html">References</a></li>
+    </ul>
+  </div>
+</header>
+<div class="page-head"><div class="wrap">
+  <div class="crumb"><a href="index.html#portfolio">&larr; Portfolio</a></div>
+  <div class="eyebrow">Section 05 &middot; Database Design &amp; Applications</div>
+  <h1 style="font-size:36px;margin-bottom:12px">Relational Modeling &amp; SQL Server</h1>
+  <div class="prose"><p style="font-size:17px">Database design is about translating how a business actually works into tables and relationships that keep data accurate. This section shows that full path from CIS 310: modeling business rules as ERDs, building tables in Microsoft SQL Server, and understanding exactly what each relational operation (joins, unions, and so on) returns. Every report, dashboard, and CRM I've worked with since sits on these fundamentals.</p></div>
+  <div class="skills-box"><span class="tag">ERD design</span><span class="tag">Normalization</span><span class="tag">Many-to-many</span><span class="tag">Supertype/subtype</span><span class="tag">SQL DDL</span><span class="tag">SQL Server</span><span class="tag">Relational algebra</span></div>
+  <p style="font-size:13px;color:var(--muted);margin-top:10px">CIS 310 &middot; Microsoft SQL Server Management Studio, Visio-style crow's-foot ERDs, Excel</p>
+</div></div>
+<section><div class="wrap">
+<div class="artifact">
+  <div class="meta">CIS 310 &middot; SQL SERVER</div>
+  <h3>StayWell property management database</h3>
+  <p>A six-table relational database for a property management company, built and diagrammed in SQL Server Management Studio.
+  Each property belongs to an office and an owner, has residents, and generates service requests that are each assigned a category.</p>
+  <ul>
+    <li><b>One-to-many relationships</b> are enforced with primary and foreign keys (e.g., OFFICE &rarr; PROPERTY, PROPERTY &rarr; SERVICE_REQUEST).</li>
+    <li><b>Lookup table:</b> SERVICE_CATEGORY keeps category names in one place so they can't drift across thousands of requests.</li>
+  </ul>
+  <figure><img src="img/cis310/staywell-diagram.png" alt="SQL Server database diagram for StayWell" loading="lazy"><figcaption>Database diagram in SQL Server Management Studio</figcaption></figure>
+  <h4 class="h">Creating a table with SQL</h4>
+  <p>I wrote the table definition by hand, choosing a data type for each column, then used the <code>sp_columns</code> system procedure to verify
+  what SQL Server actually created.</p>
+<pre><code class="language-sql">CREATE TABLE SHORT_TERM_RENTAL (
+  PROPERTY_ID  NUMERIC PRIMARY KEY,
+  OFFICE_NUM   NUMERIC,
+  ADDRESS      VARCHAR(30),
+  SQR_FT       NUMERIC,
+  BDRMS        DECIMAL(2,0),
+  FLOORS       INT,
+  WEEKLY_RENT  NUMERIC,
+  OWNER_NUM    CHAR(5)
+);
+EXEC SP_COLUMNS SHORT_TERM_RENTAL;</code></pre>
+  <figure><img src="img/cis310/create-table-sp-columns.png" alt="CREATE TABLE statement and sp_columns output" loading="lazy"><figcaption>Query executed successfully; sp_columns confirms each column's type, precision, and nullability</figcaption></figure>
+  <div class="callout warn"><b>What I'd improve:</b> add foreign-key constraints (<code>OWNER_NUM CHAR(5) REFERENCES OWNER(OWNER_NUM)</code>) so the
+  database itself rejects a rental tied to an owner who doesn't exist, and give <code>WEEKLY_RENT</code> an explicit precision like <code>DECIMAL(8,2)</code>.</div>
+</div>
+
+<div class="artifact">
+  <div class="meta">CIS 310 &middot; DATA MODELING</div>
+  <h3>Entity-relationship diagrams</h3>
+  <p>Three models that each solve a different design problem:</p>
+  <figure><img src="img/cis310/erd-employee-project.png" alt="Employee project ERD with bridge table" loading="lazy">
+  <figcaption><b>Many-to-many:</b> an employee works on many projects and a project has many employees, so the EMPLOYEE_PROJECT bridge table uses a composite primary key (EMP_ID + PRO_ID).</figcaption></figure>
+  <figure><img src="img/cis310/erd-repair-shop.png" alt="Repair shop ERD" loading="lazy">
+  <figcaption><b>Operational system:</b> a device repair shop with two bridge tables: PERFORMANCE links each repair request to the services performed, and PART_USAGE links services to the parts they consume (for inventory and cost tracking).</figcaption></figure>
+  <figure><img src="img/cis310/erd-employee-subtypes.png" alt="Employee supertype subtype ERD" loading="lazy" style="max-width:min(420px,100%)">
+  <figcaption><b>Supertype/subtype:</b> every employee shares common fields, while Salaried, Hourly, and Contract employees each store only their own pay fields (disjoint). Salesperson is a further specialization of Salaried. This avoids a single table full of empty columns.</figcaption></figure>
+</div>
+
+<div class="artifact">
+  <div class="meta">CIS 310 &middot; RELATIONAL ALGEBRA</div>
+  <h3>What each relational operation actually returns</h3>
+  <p>Before writing SQL joins, I worked through each relational operation by hand in Excel to see exactly which rows come back. This matters in
+  practice: a lot of reporting errors come down to choosing the wrong join.</p>
+  <figure><img src="img/cis310/ra-natural-join.png" alt="Natural join step by step" loading="lazy">
+  <figcaption><b>Inner join in three steps:</b> (1) product of every Order with every Customer, (2) select rows where the CustomerIDs match, (3) project away the duplicate column.</figcaption></figure>
+  <figure><img src="img/cis310/ra-outer-joins.png" alt="Left, right and full outer joins" loading="lazy">
+  <figcaption><b>Outer joins:</b> left, right, and full outer joins keep unmatched rows and fill the gaps with nulls. Order 10310 has no matching customer, so only a left or full join keeps it.</figcaption></figure>
+  <div class="figrow">
+    <figure><img src="img/cis310/ra-union.png" alt="Union" loading="lazy"><figcaption>UNION: combine union-compatible tables, dropping duplicates</figcaption></figure>
+    <figure><img src="img/cis310/ra-difference.png" alt="Difference" loading="lazy"><figcaption>DIFFERENCE: rows in the first table but not the second</figcaption></figure>
+  </div>
+  <figure><img src="img/cis310/ra-division.png" alt="Division" loading="lazy"><figcaption>DIVISION: which students are enrolled in <i>every</i> course? Only Alice.</figcaption></figure>
+</div>
+</div></section>
+<div class="wrap"><div class="pager">
+  <a href="data-analytics.html"><small>&larr; Previous</small><b>04 Data Analytics</b></a>
+  <a href="programming.html" style="text-align:right"><small>Next &rarr;</small><b>06 Programming</b></a>
+</div></div>
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Ethan Havertape &middot; CIS 410 Portfolio, University of Louisville</span>
+    <span><a href="mailto:ethan@duegooder.com">ethan@duegooder.com</a> &middot; <a href="https://www.linkedin.com/in/ethan-havertape-712b45330" target="_blank" rel="noopener">LinkedIn</a></span>
+  </div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+</body>
+</html>

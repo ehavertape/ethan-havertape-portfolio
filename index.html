@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ethan Havertape | Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">Ethan <span>Havertape</span></a>
+    <button class="navtoggle" aria-label="Menu" onclick="document.getElementById('navlist').classList.toggle('open')">Menu</button>
+    <ul id="navlist">
+      <li><a class="active" href="index.html">Home</a></li>
+      <li><a href="resume.html">Resume &amp; Cover Letter</a></li>
+      <li><a href="index.html#portfolio">Portfolio</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="references.html">References</a></li>
+    </ul>
+  </div>
+</header>
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">CIS &middot; Data Analytics &middot; University of Louisville</div>
+      <h1>I turn messy business data into systems that drive revenue.</h1>
+      <p class="lede">Computer Information Systems student (Data Analytics concentration) and co-founder &amp; COO of Due Gooder, an AI study platform used by 320,000+ college students. I build the data pipelines, funnels, and reporting behind go-to-market teams. My target role is Revenue Operations Analyst.</p>
+      <div class="btns">
+        <a class="btn primary" href="#portfolio">View portfolio</a>
+        <a class="btn ghost" href="resume.html">Resume &amp; cover letter</a>
+      </div>
+    </div>
+    <img class="photo" src="img/headshot.jpg" alt="Ethan Havertape headshot">
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><b>320,000+</b><span>Due Gooder users</span></div>
+    <div class="stat"><b>17.9M</b><span>Views from our fall UGC campaign</span></div>
+    <div class="stat"><b>4</b><span>University pilots signed</span></div>
+    <div class="stat"><b>129</b><span>Universities prospected</span></div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap about">
+    <div>
+      <h2>About me</h2>
+      <p>I'm finishing my B.S.B.A. in Computer Information Systems at the University of Louisville. Through UofL's Sandbox program, I spent a large share of my degree building Due Gooder full-time, so my capstone-level work comes from a real company with real users and university customers.</p>
+      <p>At Due Gooder I own go-to-market: marketing, sales, partnerships, and business operations. Due Gooder grew consumer-first, selling directly to students, and I ran our fall creator campaign with Vizi Labs (50 creators, 5,200+ posts, 17.9 million views). I also opened universities as a new sales channel: I built our outreach system from scratch and co-led our security review with the University of Louisville. Outside Due Gooder, I work part-time as a GTM Engineer at PayFWDs, a payroll and HR software company, where I own audience building, funnel tracking, and automation.</p>
+      <p>This portfolio pairs my CIS coursework (database design, programming, web development, and statistics) with that professional work. Each section explains which skill it demonstrates and why it matters.</p>
+    </div>
+    <div class="panel">
+      <h3>Education</h3>
+      <p style="font-size:14px;color:var(--ink-2);margin-bottom:16px"><b>University of Louisville</b>, College of Business<br>B.S.B.A., Computer Information Systems<br>Concentration: Data Analytics<br>Expected December 2026</p>
+      <h3>Core skills</h3>
+      <div class="tags">
+        <span class="tag">SQL &amp; database design</span><span class="tag">Excel</span><span class="tag">SPSS</span>
+        <span class="tag">Statistical analysis</span><span class="tag">Funnel analytics</span><span class="tag">Process design</span>
+      </div>
+      <h3>Tools</h3>
+      <div class="tags">
+        <span class="tag alt">SQL Server</span><span class="tag alt">C#</span><span class="tag alt">HTML/CSS/JS</span>
+        <span class="tag alt">Notion</span><span class="tag alt">Instantly</span><span class="tag alt">Clay</span><span class="tag alt">Claude</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <h2>Portfolio</h2>
+    <p class="sub">Organized by skill area. Every artifact opens in your browser, with nothing to download.</p>
+    <div class="grid">
+      <a class="card" href="systems-analysis.html">
+        <div class="num">01 / Business &amp; Systems Analysis</div>
+        <h3>University Pilot &amp; Security Review</h3>
+        <p>Requirements, stakeholder, and risk analysis behind getting Due Gooder approved for a campus-wide pilot at the University of Louisville, including the HECVAT security assessment.</p>
+        <div class="src"><b>Due Gooder</b> &middot; Sandbox program</div>
+      </a>
+      <a class="card" href="data-systems.html">
+        <div class="num">02 / Data Systems &amp; Process Design</div>
+        <h3>Go-To-Market Engine</h3>
+        <p>Two channels: our core consumer engine, a 50-creator UGC campaign with Vizi Labs (5,228 posts, 17.9M views) and the analysis of what drove it, and a new university channel I built from scratch (~800 decision-makers contacted across 129 schools, 4 signed pilots). Includes the process flow, data model, and results.</p>
+        <div class="src"><b>Due Gooder</b> &middot; Sandbox program</div>
+      </a>
+      <a class="card" href="critical-thinking.html">
+        <div class="num">03 / Critical Thinking</div>
+        <h3>Strategy Case: Adding a University Channel</h3>
+        <p>A structured case analysis (problem, industry analysis, stakeholders, courses of action, recommendation) on whether and how a consumer-first startup should add universities as a sales channel.</p>
+        <div class="src"><b>Due Gooder</b> &middot; Sandbox program</div>
+      </a>
+      <a class="card" href="data-analytics.html">
+        <div class="num">04 / Data Analytics</div>
+        <h3>Statistical Analysis of Household Income</h3>
+        <p>Hypothesis testing, ANOVA, and multiple regression in Excel and SPSS, including spotting a confounding variable that changed the conclusion.</p>
+        <div class="src"><b>CIS 344</b> &middot; Excel, SPSS</div>
+      </a>
+      <a class="card" href="database.html">
+        <div class="num">05 / Database Design</div>
+        <h3>Relational Modeling &amp; SQL Server</h3>
+        <p>Crow's-foot ERDs including many-to-many and supertype/subtype designs, table creation in SQL Server, and relational algebra worked step by step.</p>
+        <div class="src"><b>CIS 310</b> &middot; SQL Server, Visio</div>
+      </a>
+      <a class="card" href="programming.html">
+        <div class="num">06 / Programming</div>
+        <h3>Object-Oriented C#</h3>
+        <p>A Student class with encapsulation and input validation, plus a Windows Forms contract-pricing calculator with tiered discount logic.</p>
+        <div class="src"><b>CIS 199</b> &middot; C#, .NET</div>
+      </a>
+      <a class="card" href="web.html">
+        <div class="num">07 / Web Development</div>
+        <h3>Live Web Projects</h3>
+        <p>A checkout form with regex validation, a multi-page styled site, and a JavaScript timer, all running live. This portfolio site itself is also hand-built.</p>
+        <div class="src"><b>CIS 150</b> &middot; HTML, CSS, JavaScript</div>
+      </a>
+      <a class="card" href="skills.html">
+        <div class="num">08 / Skill Set Sheet</div>
+        <h3>Skills Mapped to Evidence</h3>
+        <p>Every skill the target role asks for, linked to the artifact that demonstrates it.</p>
+        <div class="src">Summary</div>
+      </a>
+      <a class="card" href="references.html">
+        <div class="num">09 / References</div>
+        <h3>Professional References</h3>
+        <p>People who can speak to my work at Due Gooder, PayFWDs, and UofL.</p>
+        <div class="src">Contacts</div>
+      </a>
+    </div>
+    <div class="note"><b>Note on Sections 01–03:</b> I completed UofL's Sandbox program in place of CIS 320, 420, and 410, building Due Gooder full-time for credit. Those sections apply the same systems analysis, project management, and case-analysis methods to my work there.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Ethan Havertape &middot; CIS 410 Portfolio, University of Louisville</span>
+    <span><a href="mailto:ethan@duegooder.com">ethan@duegooder.com</a> &middot; <a href="https://www.linkedin.com/in/ethan-havertape-712b45330" target="_blank" rel="noopener">LinkedIn</a></span>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Analytics | Ethan Havertape</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">Ethan <span>Havertape</span></a>
+    <button class="navtoggle" aria-label="Menu" onclick="document.getElementById('navlist').classList.toggle('open')">Menu</button>
+    <ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="resume.html">Resume &amp; Cover Letter</a></li>
+      <li><a href="index.html#portfolio">Portfolio</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="references.html">References</a></li>
+    </ul>
+  </div>
+</header>
+<div class="page-head"><div class="wrap">
+  <div class="crumb"><a href="index.html#portfolio">&larr; Portfolio</a></div>
+  <div class="eyebrow">Section 04 &middot; Data Analytics</div>
+  <h1 style="font-size:36px;margin-bottom:12px">Statistical Analysis of Household Income</h1>
+  <div class="prose"><p style="font-size:17px">Two take-home exams from CIS 344 where I was given a raw dataset of Louisville households and a set of business questions, and had to choose the right statistical test, run it, and explain the result in plain language. This is the core of analyst work: turning a question someone actually cares about into a defensible, numbers-backed answer.</p></div>
+  <div class="skills-box"><span class="tag">Hypothesis testing</span><span class="tag">ANOVA</span><span class="tag">Multiple regression</span><span class="tag">Dummy variables</span><span class="tag">Confounding</span><span class="tag">Excel</span><span class="tag">SPSS</span></div>
+  <p style="font-size:13px;color:var(--muted);margin-top:10px">CIS 344 &middot; Exam 1 in Excel (n = 1,890 households) &middot; Exam 2 in SPSS (n = 1,655 households)</p>
+</div></div>
+<section><div class="wrap">
+<div class="artifact">
+  <div class="meta">CIS 344 &middot; EXAM 1 &middot; EXCEL</div>
+  <h3>Hypothesis testing: who earns more, and is the difference real?</h3>
+  <p>Each question needed a different test, so the first step every time was picking the method: checking variance with an F-test before
+  choosing a t-test, using z-tests for proportions, and switching to ANOVA when comparing more than two groups.</p>
+  <div class="tablewrap"><table class="data">
+    <tr><th>Business question</th><th>Method</th><th>Result</th></tr>
+    <tr><td>Do people 50 and older earn more than people under 50?</td><td>F-test (unequal variance) &rarr; two-sample t-test</td>
+        <td><b>Yes.</b> $69,789 vs. $57,633, a $12,155 gap (t = 9.87, p &lt; .001).</td></tr>
+    <tr><td>Is Louisville's high-school dropout rate in line with the 8.05% national rate?</td><td>One-sample z-test for a proportion</td>
+        <td><b>No.</b> Estimated 10.0% (95% CI 8.7%&ndash;11.3%), significantly higher (p = .002).</td></tr>
+    <tr><td>Are younger (&lt;35) and older (65+) adults equally likely to be dropouts?</td><td>Two-sample z-test for proportions</td>
+        <td><b>No significant difference.</b> 8.7% vs. 12.9% (z = 1.89, p = .059), just short of significance.</td></tr>
+    <tr><td>Do two-earner households with one child out-earn those with none? Does controlling for age change that?</td><td>Independent t-test, then matched-pairs t-test sorted by age</td>
+        <td><b>No significant difference</b> either way ($5,103 gap, p = .11). Matching on age didn't change the conclusion.</td></tr>
+    <tr><td>Do four household types (by earners and children) differ in income?</td><td>Single-factor ANOVA</td>
+        <td><b>No.</b> F = 1.26 &lt; F-crit 2.62 (p = .29).</td></tr>
+  </table></div>
+  <p><a href="files/CIS344-Exam1-Hypothesis-Testing.pdf" target="_blank" rel="noopener">Open my full Exam 1 write-up (PDF) &#8599;</a></p>
+</div>
+
+<div class="artifact">
+  <div class="meta">CIS 344 &middot; EXAM 2 &middot; SPSS</div>
+  <h3>Regression: what actually drives household income?</h3>
+  <p>Exam 2 moved from comparing groups to modeling. I built a series of regression models, adding variables one at a time to see what
+  held up, which is the same way you'd test whether a marketing channel really drives revenue or only looks like it does.</p>
+
+  <h4 class="h">Finding 1: Education and hours worked explain over half of income</h4>
+  <p>A two-variable model explained 52.7% of the variation in income (adjusted R&sup2; = .527, p &lt; .001):</p>
+  <div class="callout"><b>Income = &minus;31,812 + 4,562 &times; (Education level) + 824 &times; (Weekly hours)</b><br>
+  Each extra level of education adds about $4,562; each extra weekly hour adds about $824, holding the other constant.</div>
+  <figure><img src="img/cis344/q3-multiple-regression.png" alt="SPSS output for multiple regression of income on education and weekly hours" loading="lazy">
+  <figcaption>SPSS output: model summary, ANOVA, and coefficients for Income ~ Educ + WkHrs</figcaption></figure>
+
+  <h4 class="h">Finding 2: The effect of education depends on hours worked</h4>
+  <p>Adding an interaction term (Education &times; Hours) was significant and nudged adjusted R&sup2; up to .532. In plain terms, education
+  pays off more for people who work more hours.</p>
+  <figure><img src="img/cis344/q4-interaction.png" alt="SPSS output for regression with interaction term" loading="lazy">
+  <figcaption>Interaction model. Note the high VIFs (up to 29): the interaction term is built from the other two variables, so they overlap heavily.</figcaption></figure>
+
+  <h4 class="h">Finding 3: A "gender gap" that disappears once you control for sector</h4>
+  <p>This was the most important result. With education and hours in the model, gender of the head of household looked significant
+  (p = .037). But once I added employment sector, gender dropped out entirely (p = .52), while both sector variables were strongly
+  significant (p &lt; .001).</p>
+  <div class="figrow">
+    <figure><img src="img/cis344/q5-gender-controls.png" alt="Regression with gender, education and hours" loading="lazy"><figcaption>Before: gender looks significant (p = .037)</figcaption></figure>
+    <figure><img src="img/cis344/q5-with-sector.png" alt="Regression adding sector dummy variables" loading="lazy"><figcaption>After adding sector: gender is not significant (p = .52)</figcaption></figure>
+  </div>
+  <div class="callout"><b>Why this matters:</b> the apparent gender effect was really a sector effect. Men and women in this sample were spread
+  differently across sectors, and sector is what drives the income difference. In business terms, this is the classic trap of crediting the
+  wrong variable, like crediting a campaign for growth that really came from seasonality.</div>
+
+  <h4 class="h">Exploring relationships first</h4>
+  <div class="figrow">
+    <figure><img src="img/cis344/q2-correlations.png" alt="Correlation matrix" loading="lazy"><figcaption>Correlation matrix: weekly hours correlate most with alcohol spending (r = .461)</figcaption></figure>
+    <figure><img src="img/cis344/q2-scatter-matrix.png" alt="Scatter plot matrix" loading="lazy"><figcaption>Scatter matrix used to check the relationships visually</figcaption></figure>
+  </div>
+  <p><a href="files/CIS344-Exam2-Regression.pdf" target="_blank" rel="noopener">Open my full Exam 2 write-up with all SPSS output (PDF) &#8599;</a></p>
+</div>
+
+<div class="artifact" style="background:#fffaf0;border-color:#f3e1b9">
+  <div class="meta">REFLECTION</div>
+  <h3>What I'd write differently now</h3>
+  <ul>
+    <li><b>"Fail to reject" isn't "no effect."</b> On Exam 2, Q1 I wrote that gender "does not have an impact" on income. The accurate
+    statement is that this sample doesn't show enough evidence of a difference.</li>
+    <li><b>I undersold my own confounding result.</b> In Q5 I concluded income is best explained by education and hours "rather than
+    sector," but my output shows sector is highly significant. Sector is the variable that explains the gender gap, and it belongs in the model.</li>
+    <li><b>Correlation isn't causation.</b> Hours worked and alcohol spending are correlated, but both likely track a third factor (like income).</li>
+    <li><b>Watch for multicollinearity.</b> The interaction model's VIFs were high. Centering the variables before multiplying would fix that.</li>
+  </ul>
+</div>
+</div></section>
+<div class="wrap"><div class="pager">
+  <a href="critical-thinking.html"><small>&larr; Previous</small><b>03 Strategy Case</b></a>
+  <a href="database.html" style="text-align:right"><small>Next &rarr;</small><b>05 Database Design</b></a>
+</div></div>
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Ethan Havertape &middot; CIS 410 Portfolio, University of Louisville</span>
+    <span><a href="mailto:ethan@duegooder.com">ethan@duegooder.com</a> &middot; <a href="https://www.linkedin.com/in/ethan-havertape-712b45330" target="_blank" rel="noopener">LinkedIn</a></span>
+  </div>
+</footer>
+</body>
+</html>
